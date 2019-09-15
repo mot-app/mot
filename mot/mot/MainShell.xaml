@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mot.MainShell"
+             xmlns:views="clr-namespace:mot.Views">
+    <TabBar>
+        <Tab Title="Overview">
+            <ShellContent>
+                <views:OverView></views:OverView>
+            </ShellContent>
+        </Tab>
+        <Tab Title="Map">
+            <ShellContent>
+                <views:MapView></views:MapView>
+            </ShellContent>
+        </Tab>
+        <Tab Title="Profile">
+            <ShellContent>
+                <views:ProfileView></views:ProfileView>
+            </ShellContent>
+        </Tab>
+    </TabBar>
+</Shell>
