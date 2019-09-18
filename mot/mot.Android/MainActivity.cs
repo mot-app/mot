@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
+
 namespace mot.Droid
 {
     [Activity(Label = "mot", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -16,6 +17,9 @@ namespace mot.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+            //To hide the statusbar and buttons
+            //Window.AddFlags(WindowManagerFlags.LayoutNoLimits);
+            Window.DecorView.SetFitsSystemWindows(true);
 
             base.OnCreate(savedInstanceState);
 

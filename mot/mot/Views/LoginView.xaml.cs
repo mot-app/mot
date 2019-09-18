@@ -5,15 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
-using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace mot.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MapView : ContentPage
+    public partial class LoginView : ContentPage
     {
-        public MapView()
+        public LoginView()
         {
             InitializeComponent();
         }
