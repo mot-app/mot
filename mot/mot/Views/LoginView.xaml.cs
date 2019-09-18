@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using mot.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,5 +19,6 @@ namespace mot.Views
 
             BindingContext = new LoginViewModel();
         }
+
     }
 }

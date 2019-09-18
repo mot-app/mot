@@ -14,13 +14,13 @@ using mot.Services;
 
 namespace mot.Droid
 {
-    [Activity(Label = "CustomUrlSchemeInterceptorActivity", NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+    [Activity(Label = "UrlInterceptor", NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
     [IntentFilter(
         new[] { Intent.ActionView },
         Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
         DataSchemes = new[] { "com.googleusercontent.apps.848493642769-cf3kmpnq5ev3d4mlta7urt5fpn5hn3k2" },
         DataPath = "/oauth2redirect")]
-    public class CustomUrlSchemeInterceptorActivity : Activity
+    public class UrlInterceptor : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
