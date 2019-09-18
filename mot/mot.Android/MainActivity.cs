@@ -2,6 +2,7 @@
 
 using Android.App;
 using Android.Content.PM;
+using Android.Graphics;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -17,14 +18,14 @@ namespace mot.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            //To hide the statusbar and buttons
-            //Window.AddFlags(WindowManagerFlags.LayoutNoLimits);
+            Window.SetStatusBarColor(Color.ParseColor("#fe6436"));
             Window.DecorView.SetFitsSystemWindows(true);
 
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, savedInstanceState);
             Xamarin.FormsMaps.Init(this, savedInstanceState);
             LoadApplication(new App());
         }

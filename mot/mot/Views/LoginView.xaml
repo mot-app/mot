@@ -4,18 +4,25 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             xmlns:buttons="clr-namespace:mot.Views"
              Shell.NavBarIsVisible="false"
              Shell.TabBarIsVisible="false"
              BackgroundColor="#fe6436"
+             xmlns:local="clr-namespace:mot;assembly="
              x:Class="mot.Views.LoginView">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="møt" TextColor="White" FontSize="72" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,40,0,10"></Label>
-            <Frame CornerRadius="15" WidthRequest="330" HeightRequest="480" VerticalOptions="Center" HorizontalOptions="Center">
+            <Frame CornerRadius="15" WidthRequest="330" HeightRequest="450" VerticalOptions="Center" HorizontalOptions="Center">
                 <Grid BackgroundColor="White">
-                    <Label Text="Login" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16"></Label>
-                    <buttons:FacebookLoginButton></buttons:FacebookLoginButton>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Login" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" FontSize="16"></Label>
+                    <Button Grid.Row="1" Grid.Column="0" Text="Login With Google"  HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Command="{Binding Login}"></Button>
                 </Grid>
             </Frame>
         </StackLayout>
