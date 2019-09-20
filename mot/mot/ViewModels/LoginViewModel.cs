@@ -69,7 +69,7 @@ namespace mot.ViewModels
             if (!e.IsAuthenticated) return;
 
             var token = e.Account.Properties["access_token"];
-            await SecureStorage.SetAsync("access_token", token);
+            //await SecureStorage.SetAsync("access_token", token);
             Application.Current.MainPage = new MainShell();
 
             var request = new OAuth2Request("GET", new Uri(GoogleOAuthManager.UserInfoUrl), null, e.Account);
