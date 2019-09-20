@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using mot.Models;
 using mot.Services;
+using mot.Services.Api;
 using mot.Services.Auth;
 using MvvmHelpers;
 using Newtonsoft.Json;
@@ -16,6 +17,8 @@ namespace mot.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
+        public User User;
+        public string Name;
         public LoginViewModel()
         {
             Login = new Command(OnLoginClicked, () => !IsBusy);
@@ -39,10 +42,6 @@ namespace mot.ViewModels
                 case Device.Android:
                     clientId = GoogleOAuthManager.AndroidClientId;
                     redirectUri = GoogleOAuthManager.AndroidRedirectUrl;
-                    break;
-                default:
-                    clientId = "";
-                    redirectUri = "";
                     break;
             }
 
@@ -69,7 +68,9 @@ namespace mot.ViewModels
         {
             if (!e.IsAuthenticated) return;
 
-            User user = null;
+            var token = e.Account.Properties["access_token"];
+            await SecureStorage.SetAsync("access_token", token);
+            Application.Current.MainPage = new MainShell();
 
             var request = new OAuth2Request("GET", new Uri(GoogleOAuthManager.UserInfoUrl), null, e.Account);
             var response = await request.GetResponseAsync();
@@ -77,13 +78,10 @@ namespace mot.ViewModels
             if (response != null)
             {
                 string userJson = await response.GetResponseTextAsync();
-                user = JsonConvert.DeserializeObject<User>(userJson);
-            }
-
-            var token = e.Account.Properties["access_token"];
-
-            await SecureStorage.SetAsync("access_token", token);
-            Application.Current.MainPage = new MainShell();
+                User = JsonConvert.DeserializeObject<User>(userJson);
+                //var Uri = new Uri("http://localhost:8080/user");
+                //await RestService.Create(User, Uri);
+            };
         }
 
         void OnAuthError(object sender, AuthenticatorErrorEventArgs e)

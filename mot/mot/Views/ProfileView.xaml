@@ -7,7 +7,7 @@
              x:Class="mot.Views.ProfileView">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="This is the Profile Page"
+            <Label Text="{Binding Name}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
