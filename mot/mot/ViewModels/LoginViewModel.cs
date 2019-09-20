@@ -79,8 +79,8 @@ namespace mot.ViewModels
             {
                 string userJson = await response.GetResponseTextAsync();
                 User = JsonConvert.DeserializeObject<User>(userJson);
-                //var Uri = new Uri("http://localhost:8080/user");
-                //await RestService.Create(User, Uri);
+                var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user");
+                await RestService.Create(User, Uri);
             };
         }
 

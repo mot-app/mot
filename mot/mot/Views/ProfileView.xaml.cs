@@ -17,7 +17,7 @@ namespace mot.Views
         {
             InitializeComponent();
 
-            BindingContext = new LoginViewModel();
+            BindingContext = new ProfileViewModel();
         }
     }
 }
