@@ -25,6 +25,7 @@ namespace mot.iOS
         {
             Xamarin.Forms.Forms.Init();
             Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
+            Xamarin.FormsMaps.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

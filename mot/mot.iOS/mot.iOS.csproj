@@ -129,7 +129,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\mot\mot.csproj">
-      <Project>{93948DC4-3841-4485-861C-F84D25029C2F}</Project>
+      <Project>{A83CC6AC-132C-4525-AF99-D328476CEE95}</Project>
       <Name>mot</Name>
     </ProjectReference>
   </ItemGroup>
