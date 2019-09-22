@@ -17,8 +17,6 @@ namespace mot.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        public User User;
-        public string Name;
         public LoginViewModel()
         {
             Login = new Command(OnLoginClicked, () => !IsBusy);
@@ -78,7 +76,7 @@ namespace mot.ViewModels
             if (response != null)
             {
                 string userJson = await response.GetResponseTextAsync();
-                User = JsonConvert.DeserializeObject<User>(userJson);
+                var User = JsonConvert.DeserializeObject<User>(userJson);
                 var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user");
                 await RestService.Create(User, Uri);
             };
