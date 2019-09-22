@@ -24,7 +24,7 @@ namespace mot.ViewModels
 
         public Command Login { get; }
 
-        void OnLoginClicked()
+        private void OnLoginClicked()
         {
             string clientId = null;
             string redirectUri = null;
@@ -62,7 +62,7 @@ namespace mot.ViewModels
             presenter.Login(authenticator);
         }
 
-        async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
+        private async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
         {
             if (!e.IsAuthenticated) return;
 
@@ -77,12 +77,15 @@ namespace mot.ViewModels
             {
                 string userJson = await response.GetResponseTextAsync();
                 var User = JsonConvert.DeserializeObject<User>(userJson);
+                User.Available = false;
+                User.Busy = false;
+                await SecureStorage.SetAsync("id", User.Id);
                 var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user");
                 await RestService.Create(User, Uri);
             };
         }
 
-        void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
+        private void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
         {
             Debug.WriteLine("Authentication error: " + e.Message);
         }

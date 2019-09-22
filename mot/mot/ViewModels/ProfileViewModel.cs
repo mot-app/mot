@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Linq;
 using Newtonsoft.Json;
+using Xamarin.Essentials;
 
 namespace mot.ViewModels
 {
@@ -20,14 +21,14 @@ namespace mot.ViewModels
             Task.Run(async () => await GetUser());
         }
 
-        private User user;
-        public User User
+        private string id; 
+        public string Id
         {
-            get => user;
+            get => id;
             set
             {
-                SetProperty(ref user, value);
-                OnPropertyChanged(nameof(User));
+                SetProperty(ref id, value);
+                OnPropertyChanged(nameof(Id));
             }
         }
 
@@ -42,14 +43,39 @@ namespace mot.ViewModels
             }
         }
 
-
-        async Task GetUser()
+        private string email;
+        public string Email
         {
-            var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + "116466181289590143131");
+            get => email;
+            set
+            {
+                SetProperty(ref email, value);
+                OnPropertyChanged(nameof(Email));
+            }
+        }
+
+        private string picture;
+        public string Picture
+        {
+            get => picture;
+            set
+            {
+                SetProperty(ref picture, value);
+                OnPropertyChanged(nameof(Picture));
+            }
+        }
+
+        private async Task GetUser()
+        {
+            string id = await SecureStorage.GetAsync("id");
+            var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id);
             string data = await RestService.Read(Uri);
             var users = JsonConvert.DeserializeObject<List<User>>(data);
-            User = users.First();
+            var User = users.First();
+            Id = User.Id;
             Name = User.Name;
+            Email = User.Email;
+            Picture = User.Picture;
         }
     }
 }

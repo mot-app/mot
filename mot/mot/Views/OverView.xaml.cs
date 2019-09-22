@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mot.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace mot.Views
         public OverView()
         {
             InitializeComponent();
+
+            BindingContext = new OverViewModel();
         }
     }
 }

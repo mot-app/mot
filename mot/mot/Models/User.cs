@@ -22,5 +22,11 @@ namespace mot.Models
 
         [JsonProperty("picture")]
         public string Picture { get; set; }
+
+        [JsonProperty("available")]
+        public bool Available { get; set; }
+
+        [JsonProperty("busy")]
+        public bool Busy { get; set; }
     }
 }

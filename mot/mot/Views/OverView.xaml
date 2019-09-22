@@ -7,9 +7,7 @@
              x:Class="mot.Views.OverView">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="This is the OverView Page"
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand" />
+            <ListView ItemsSource="{Binding Meetups}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
