@@ -19,7 +19,10 @@ namespace mot.ViewModels
         public ProfileViewModel()
         {
             Task.Run(async () => await GetUser());
+            ChangeAvailable = new Command(ChangeAvailableCommand, () => !IsBusy);
         }
+
+        private User User;
 
         private string id; 
         public string Id
@@ -65,17 +68,53 @@ namespace mot.ViewModels
             }
         }
 
+        private bool available;
+        public bool Available
+        {
+            get => available;
+            set
+            {
+                SetProperty(ref available, value);
+                OnPropertyChanged(nameof(Available));
+                OnPropertyChanged(nameof(DisplayAvailable));
+                OnPropertyChanged(nameof(DisplayAvailableButton));
+            }
+        }
+
+        public string DisplayAvailable => available ?  $"You are available" : $"You are not available";
+
+        public string DisplayAvailableButton => available ? $"Make yourself hidden" : $"Make yourself available";
+
+        private async void ChangeAvailableCommand()
+        {
+            Available = !available;
+            User.Available = Available;
+            await UpdateUser();
+        }
+
+        public Command ChangeAvailable { get; }
+
         private async Task GetUser()
         {
             string id = await SecureStorage.GetAsync("id");
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id);
             string data = await RestService.Read(Uri);
             var users = JsonConvert.DeserializeObject<List<User>>(data);
-            var User = users.First();
+            User = users.First();
             Id = User.Id;
             Name = User.Name;
             Email = User.Email;
             Picture = User.Picture;
+            Available = User.Available;
         }
+
+        private async Task UpdateUser()
+        {
+            string id = await SecureStorage.GetAsync("id");
+            var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id);
+            await RestService.Update(User, Uri);
+        }
+
+
     }
 }

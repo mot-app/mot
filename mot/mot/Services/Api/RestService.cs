@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +33,8 @@ namespace mot.Services.Api
             await client.PutAsync(uri, content);
         }
 
-        public static async Task Delete(object data, Uri uri)
+        public static async Task Delete(Uri uri)
         {
-            var json = JsonConvert.SerializeObject(data);
             await client.DeleteAsync(uri);
         }
     }

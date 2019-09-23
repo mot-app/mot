@@ -19,6 +19,10 @@
             <Image Source="{Binding Picture}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding DisplayAvailable}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Button Text="{Binding DisplayAvailableButton}" Command="{Binding ChangeAvailable}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

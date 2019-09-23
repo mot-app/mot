@@ -7,17 +7,25 @@
              x:Class="mot.Views.OverView">
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding User}" RowHeight="60">
+            <ListView ItemsSource="{Binding Users}" HasUnevenRows="True" RowHeight="60">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" BackgroundColor="White">
-                                <StackLayout Orientation="Vertical">
-                                    <Label Text = "{Binding Name}" FontSize="24" AbsoluteLayout.LayoutBounds="0.25, 0.25, 400, 40"/>
-                                    <Label Text = "{Binding Email}" AbsoluteLayout.LayoutBounds="50, 35, 200, 25"/>
+                            <Grid ColumnSpacing="10" Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding Picture}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    WidthRequest="60"
+                                    HeightRequest="60"
+                                    Aspect="AspectFill"/>
+                                <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding Name}"/>
                                 </StackLayout>
-                                <Image Source="{Binding Picture}" HorizontalOptions="End" AbsoluteLayout.LayoutBounds="250.25, 0.25, 50, 50 "/>
-                            </StackLayout>
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

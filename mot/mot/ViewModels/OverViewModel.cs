@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -16,10 +17,12 @@ namespace mot.ViewModels
         {
             Task.Run(async () => await GetMeetups());
             Task.Run(async () => await GetAvailableUsers());
+
+            Users = new ObservableCollection<User>();
         }
 
         public ObservableCollection<Meetup> Meetups { get; set; }
-        public ObservableCollection<User> Users { get; set; }
+        public ObservableCollection<User> Users { get; set; } 
 
         private async Task GetMeetups()
         {
@@ -34,8 +37,12 @@ namespace mot.ViewModels
             string data = await RestService.Read(Uri);
             var users = JsonConvert.DeserializeObject<List<User>>(data);
             string id = await SecureStorage.GetAsync("id");
-            users.RemoveAll(user => !user.Available || !user.Busy || user.Id == id);
-            Users = new ObservableCollection<User>(users);
+            users.RemoveAll(user => !user.Available || user.Busy || user.Id == id);
+
+            foreach (var user in users)
+            {
+                Users.Add(user);
+            };
         }
 
     }
