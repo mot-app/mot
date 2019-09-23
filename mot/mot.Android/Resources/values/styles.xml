@@ -27,4 +27,16 @@
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#FF4081</item>
   </style>
+     <!-- Custom Theme for Splash Screen-->
+  <style name="SplashScreen.Base" parent="Theme.AppCompat.Light">
+  </style>
+
+  <style name="SplashScreen" parent="SplashScreen.Base">
+  </style>
+
+  <style name="SplashScreen.Splash" parent ="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowBackground">@drawable/SplashScreen</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowFullscreen">true</item>
+  </style>
 </resources>
