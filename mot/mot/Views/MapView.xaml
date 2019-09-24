@@ -8,7 +8,7 @@
              x:Class="mot.Views.MapView">
     <ContentPage.Content>
         <StackLayout>
-            <maps:Map x:Name="MyMap"/>
+            <maps:Map x:Name="Map" IsShowingUser="true" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

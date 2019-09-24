@@ -7,7 +7,13 @@
              x:Class="mot.Views.OverView">
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Users}" HasUnevenRows="True" RowHeight="60">
+            <ListView ItemsSource="{Binding Users}"  
+                RefreshCommand="{Binding RefreshUsers}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement" 
+                HasUnevenRows="True" 
+                RowHeight="60">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

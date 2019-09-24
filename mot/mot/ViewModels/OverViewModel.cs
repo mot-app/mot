@@ -1,5 +1,6 @@
 ﻿using mot.Models;
 using mot.Services.Api;
+using MvvmHelpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,11 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace mot.ViewModels
 {
-    class OverViewModel
+    class OverViewModel : BaseViewModel
     {
         public OverViewModel()
         {
@@ -19,7 +21,10 @@ namespace mot.ViewModels
             Task.Run(async () => await GetAvailableUsers());
 
             Users = new ObservableCollection<User>();
+            RefreshUsers = new Command(async () => await GetAvailableUsers());
         }
+
+        public Command RefreshUsers { get; set; }
 
         public ObservableCollection<Meetup> Meetups { get; set; }
         public ObservableCollection<User> Users { get; set; } 
@@ -33,6 +38,12 @@ namespace mot.ViewModels
 
         private async Task GetAvailableUsers()
         {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+            Users.Clear();
+
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user");
             string data = await RestService.Read(Uri);
             var users = JsonConvert.DeserializeObject<List<User>>(data);
@@ -43,6 +54,8 @@ namespace mot.ViewModels
             {
                 Users.Add(user);
             };
+
+            IsBusy = false;
         }
 
     }
