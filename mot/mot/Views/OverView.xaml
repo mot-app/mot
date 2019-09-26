@@ -28,8 +28,9 @@
                                     WidthRequest="60"
                                     HeightRequest="60"
                                     Aspect="AspectFill"/>
-                                <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                    <Label Text="{Binding Name}"/>
+                                <StackLayout Grid.Column="1" Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Button Text="Request Meetup" HorizontalOptions="Center" VerticalOptions="Center" Command="{Binding RequestMeetup}" CommandParameter="{Binding Id}"/>
                                 </StackLayout>
                             </Grid>
                         </ViewCell>

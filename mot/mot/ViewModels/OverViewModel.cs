@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -22,9 +21,12 @@ namespace mot.ViewModels
 
             Users = new ObservableCollection<User>();
             RefreshUsers = new Command(async () => await GetAvailableUsers());
+            RequestMeetup = new Command(async obj => await SetMeetup(obj));
         }
 
         public Command RefreshUsers { get; set; }
+
+        public Command RequestMeetup { get; set; }
 
         public ObservableCollection<Meetup> Meetups { get; set; }
         public ObservableCollection<User> Users { get; set; } 
@@ -47,7 +49,7 @@ namespace mot.ViewModels
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user");
             string data = await RestService.Read(Uri);
             var users = JsonConvert.DeserializeObject<List<User>>(data);
-            string id = await SecureStorage.GetAsync("id");
+            string id = await SecureStorage.GetAsync("ID");
             users.RemoveAll(user => !user.Available || user.Busy || user.Id == id);
 
             foreach (var user in users)
@@ -56,6 +58,13 @@ namespace mot.ViewModels
             };
 
             IsBusy = false;
+        }
+
+        private async Task SetMeetup(object obj)
+        {
+            string reqid = obj as string;
+            Debug.WriteLine(reqid);
+            string id = await SecureStorage.GetAsync("ID");
         }
 
     }

@@ -23,6 +23,12 @@ namespace mot.Models
         [JsonProperty("picture")]
         public string Picture { get; set; }
 
+        [JsonProperty("latitude")]
+        public double Latitude { get; set; }
+
+        [JsonProperty("longitude")]
+        public double Longitude { get; set; }
+
         [JsonProperty("available")]
         public bool Available { get; set; }
 

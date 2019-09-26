@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using mot.Models;
 using mot.Services;
 using mot.Services.Api;
@@ -29,7 +25,6 @@ namespace mot.ViewModels
         {
             string clientId = null;
             string redirectUri = null;
-
 
             switch (Device.RuntimePlatform)
             {
@@ -61,15 +56,18 @@ namespace mot.ViewModels
 
             var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
             presenter.Login(authenticator);
+            IsBusy = true;
         }
 
-        private async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
+        private async void OnAuthCompleted(object sender = null, AuthenticatorCompletedEventArgs e = null)
         {
             if (!e.IsAuthenticated) return;
 
-            var token = e.Account.Properties["access_token"];
+            //var token = e.Account.Properties["access_token"];
             //await SecureStorage.SetAsync("access_token", token);
+
             Application.Current.MainPage = new MainShell();
+            IsBusy = false;
 
             var request = new OAuth2Request("GET", new Uri(GoogleOAuthManager.UserInfoUrl), null, e.Account);
             var response = await request.GetResponseAsync();
@@ -78,9 +76,13 @@ namespace mot.ViewModels
             {
                 string userJson = await response.GetResponseTextAsync();
                 var User = JsonConvert.DeserializeObject<User>(userJson);
+                var position = await Geolocation.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Medium));
                 User.Available = false;
                 User.Busy = false;
-                await SecureStorage.SetAsync("id", User.Id);
+                User.Latitude = position.Latitude;
+                User.Longitude = position.Longitude;
+                Application.Current.Properties["ID"] = User.Id;
+                await SecureStorage.SetAsync("ID", User.Id);
                 var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user");
                 await RestService.Create(User, Uri);
             };

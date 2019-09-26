@@ -4,10 +4,8 @@ using MvvmHelpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using System.Linq;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
 
@@ -96,11 +94,12 @@ namespace mot.ViewModels
 
         private async Task GetUser()
         {
-            string id = await SecureStorage.GetAsync("id");
+            string id = await SecureStorage.GetAsync("ID");
+            Debug.WriteLine(id);
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id);
             string data = await RestService.Read(Uri);
             var users = JsonConvert.DeserializeObject<List<User>>(data);
-            User = users.First();
+            User = users.Find(user => user.Id == id);
             Id = User.Id;
             Name = User.Name;
             Email = User.Email;
@@ -110,7 +109,7 @@ namespace mot.ViewModels
 
         private async Task UpdateUser()
         {
-            string id = await SecureStorage.GetAsync("id");
+            string id = await SecureStorage.GetAsync("ID");
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id);
             await RestService.Update(User, Uri);
         }

@@ -1,4 +1,7 @@
-﻿using mot.ViewModels;
+﻿using mot.Models;
+using mot.Services.Api;
+using mot.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +21,19 @@ namespace mot.Views
         public MapView()
         {
             InitializeComponent();
-            Task.Run(async () => await GetLocation());
             BindingContext = new MapViewModel();
-            
+            Task.Run(async () => await SetMapLocation());
+
         }
 
-        private async Task GetLocation()
+        private async Task SetMapLocation()
         {
-            var request = new GeolocationRequest(GeolocationAccuracy.Medium);
-            var position = await Geolocation.GetLocationAsync(request);
-            Map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromMiles(1)));
+            string id = await SecureStorage.GetAsync("id");
+            var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id);
+            string data = await RestService.Read(Uri);
+            var users = JsonConvert.DeserializeObject<List<User>>(data);
+            var User = users.Find(user => user.Id == id);
+            Map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(User.Latitude, User.Longitude), Distance.FromMiles(1)));
             var zoomLevel = 9;
             var latlongdegrees = 360 / (Math.Pow(2, zoomLevel));
             Map.MoveToRegion(new MapSpan(Map.VisibleRegion.Center, latlongdegrees, latlongdegrees));
