@@ -9,7 +9,7 @@ namespace mot.Models
     public class Meetup
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty("user1")]
         public string User1 { get; set; }
@@ -22,5 +22,11 @@ namespace mot.Models
 
         [JsonProperty("active")]
         public bool Active { get; set; }
+
+        [JsonProperty("user1name")]
+        public string User1Name { get; set; }
+
+        [JsonProperty("user2name")]
+        public string User2Name { get; set; }
     }
 }

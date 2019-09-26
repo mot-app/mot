@@ -59,14 +59,13 @@ namespace mot.ViewModels
             IsBusy = true;
         }
 
-        private async void OnAuthCompleted(object sender = null, AuthenticatorCompletedEventArgs e = null)
+        private async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
         {
             if (!e.IsAuthenticated) return;
 
             //var token = e.Account.Properties["access_token"];
             //await SecureStorage.SetAsync("access_token", token);
-
-            Application.Current.MainPage = new MainShell();
+            await Shell.Current.GoToAsync("//main");
             IsBusy = false;
 
             var request = new OAuth2Request("GET", new Uri(GoogleOAuthManager.UserInfoUrl), null, e.Account);
@@ -81,11 +80,11 @@ namespace mot.ViewModels
                 User.Busy = false;
                 User.Latitude = position.Latitude;
                 User.Longitude = position.Longitude;
-                Application.Current.Properties["ID"] = User.Id;
                 await SecureStorage.SetAsync("ID", User.Id);
                 var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user");
                 await RestService.Create(User, Uri);
             };
+
         }
 
         private void OnAuthError(object sender, AuthenticatorErrorEventArgs e)

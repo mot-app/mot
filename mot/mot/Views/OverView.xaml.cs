@@ -13,11 +13,20 @@ namespace mot.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OverView : ContentPage
     {
+        OverViewModel overview;
         public OverView()
         {
             InitializeComponent();
 
-            BindingContext = new OverViewModel();
+            BindingContext = overview = new OverViewModel();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            await overview.GetAvailableUsers();
+            await overview.GetMeetups();
         }
     }
 }

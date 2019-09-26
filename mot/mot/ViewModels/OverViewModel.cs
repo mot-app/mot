@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -16,29 +15,51 @@ namespace mot.ViewModels
     {
         public OverViewModel()
         {
-            Task.Run(async () => await GetMeetups());
-            Task.Run(async () => await GetAvailableUsers());
+
+            Refresh = new Command(async () =>
+            {
+                await GetAvailableUsers();
+                await GetMeetups();
+            });
+
+            RequestMeetup = new Command(async obj => await SetMeetup(obj));
 
             Users = new ObservableCollection<User>();
-            RefreshUsers = new Command(async () => await GetAvailableUsers());
-            RequestMeetup = new Command(async obj => await SetMeetup(obj));
+
+            Meetups = new ObservableCollection<Meetup>();
         }
 
-        public Command RefreshUsers { get; set; }
+        public Command Refresh { get; }
 
-        public Command RequestMeetup { get; set; }
+        public Command RequestMeetup { get; }
 
         public ObservableCollection<Meetup> Meetups { get; set; }
-        public ObservableCollection<User> Users { get; set; } 
 
-        private async Task GetMeetups()
+        public ObservableCollection<User> Users { get; set; }
+
+        public async Task GetMeetups()
         {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+            Meetups.Clear();
+
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/meetup/");
             string data = await RestService.Read(Uri);
-            Meetups = new ObservableCollection<Meetup>(JsonConvert.DeserializeObject<List<Meetup>>(data));
+            var meetups = JsonConvert.DeserializeObject<List<Meetup>>(data);
+            string id = await SecureStorage.GetAsync("ID");
+            meetups.RemoveAll(meetup => meetup.User1 != id && meetup.User2 != id);
+
+            foreach (var meetup in meetups)
+            {
+                Meetups.Add(meetup);
+            }
+
+            IsBusy = false;
         }
 
-        private async Task GetAvailableUsers()
+        public async Task GetAvailableUsers()
         {
             if (IsBusy)
                 return;
@@ -62,9 +83,35 @@ namespace mot.ViewModels
 
         private async Task SetMeetup(object obj)
         {
-            string reqid = obj as string;
-            Debug.WriteLine(reqid);
-            string id = await SecureStorage.GetAsync("ID");
+            string id1 = await SecureStorage.GetAsync("ID");
+            var Uri1 = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id1);
+            string Data1 = await RestService.Read(Uri1);
+            var users1 = JsonConvert.DeserializeObject<List<User>>(Data1);
+            var User1 = users1.Find(user => user.Id == id1);
+
+            string id2 = obj as string;
+            var Uri2 = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id2);
+            string Data2 = await RestService.Read(Uri2);
+            var users2 = JsonConvert.DeserializeObject<List<User>>(Data2);
+            var User2 = users2.Find(user => user.Id == id2);
+            User2.Busy = true;
+            await RestService.Update(User2, Uri2);
+
+            var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/meetup/");
+            var Meetup = new Meetup();
+
+            Meetup.Id = id1 + id2;
+            Meetup.User1 = id1;
+            Meetup.User2 = id2;
+            Meetup.Time = DateTime.Now;
+            Meetup.Active = true;
+            Meetup.User1Name = User1.Name;
+            Meetup.User2Name = User2.Name;
+
+            await RestService.Create(Meetup, Uri);
+
+            await GetAvailableUsers();
+            await GetMeetups();
         }
 
     }

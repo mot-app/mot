@@ -4,11 +4,12 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             x:Name="Overview"
              x:Class="mot.Views.OverView">
     <ContentPage.Content>
         <StackLayout>
             <ListView ItemsSource="{Binding Users}"  
-                RefreshCommand="{Binding RefreshUsers}"
+                RefreshCommand="{Binding Refresh}"
                 IsPullToRefreshEnabled="true"
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                 CachingStrategy="RecycleElement" 
@@ -30,8 +31,30 @@
                                     Aspect="AspectFill"/>
                                 <StackLayout Grid.Column="1" Orientation="Horizontal">
                                     <Label Text="{Binding Name}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                    <Button Text="Request Meetup" HorizontalOptions="Center" VerticalOptions="Center" Command="{Binding RequestMeetup}" CommandParameter="{Binding Id}"/>
+                                    <Button Text="Meetup" HorizontalOptions="Center" VerticalOptions="Center" Command="{Binding BindingContext.RequestMeetup, Source={x:Reference Overview} }" CommandParameter="{Binding Id}"/>
                                 </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView ItemsSource="{Binding Meetups}"  
+                RefreshCommand="{Binding Refresh}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement" 
+                HasUnevenRows="True" 
+                RowHeight="60">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid ColumnSpacing="10" Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding User1Name}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Label Grid.Column="1" Text="{Binding User2Name}" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

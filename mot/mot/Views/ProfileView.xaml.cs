@@ -13,11 +13,20 @@ namespace mot.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfileView : ContentPage
     {
+        private ProfileViewModel profile;
+
         public ProfileView()
         {
             InitializeComponent();
 
-            BindingContext = new ProfileViewModel();
+            BindingContext = profile = new ProfileViewModel();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            await profile.GetUser();
         }
     }
 }

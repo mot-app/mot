@@ -21,14 +21,15 @@ namespace mot.Views
         public MapView()
         {
             InitializeComponent();
-            BindingContext = new MapViewModel();
-            Task.Run(async () => await SetMapLocation());
 
+            BindingContext = new MapViewModel();
+
+            Task.Run(async () => await SetMapLocation());
         }
 
         private async Task SetMapLocation()
         {
-            string id = await SecureStorage.GetAsync("id");
+            string id = await SecureStorage.GetAsync("ID");
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id);
             string data = await RestService.Read(Uri);
             var users = JsonConvert.DeserializeObject<List<User>>(data);

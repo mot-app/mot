@@ -7,6 +7,13 @@
              Shell.NavBarIsVisible="False"
              x:Class="mot.MainShell"
              xmlns:views="clr-namespace:mot.Views">
+    <ShellItem Route="login">
+        <ShellSection>
+            <ShellContent>
+                <views:LoginView></views:LoginView>
+            </ShellContent>
+        </ShellSection>
+    </ShellItem>
     <TabBar Route="main">
         <Tab Title="Overview">
             <ShellContent>
@@ -24,11 +31,4 @@
             </ShellContent>
         </Tab>
     </TabBar>
-    <ShellItem Route="login">
-        <ShellSection>
-            <ShellContent>
-                <views:LoginView></views:LoginView>
-            </ShellContent>
-        </ShellSection>
-    </ShellItem>
 </Shell>

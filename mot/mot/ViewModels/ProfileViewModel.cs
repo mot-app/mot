@@ -16,7 +16,6 @@ namespace mot.ViewModels
 
         public ProfileViewModel()
         {
-            Task.Run(async () => await GetUser());
             ChangeAvailable = new Command(ChangeAvailableCommand, () => !IsBusy);
         }
 
@@ -92,10 +91,9 @@ namespace mot.ViewModels
 
         public Command ChangeAvailable { get; }
 
-        private async Task GetUser()
+        public async Task GetUser()
         {
             string id = await SecureStorage.GetAsync("ID");
-            Debug.WriteLine(id);
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id);
             string data = await RestService.Read(Uri);
             var users = JsonConvert.DeserializeObject<List<User>>(data);
@@ -107,7 +105,7 @@ namespace mot.ViewModels
             Available = User.Available;
         }
 
-        private async Task UpdateUser()
+        public async Task UpdateUser()
         {
             string id = await SecureStorage.GetAsync("ID");
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id);
