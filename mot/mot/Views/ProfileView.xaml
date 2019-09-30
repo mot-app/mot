@@ -27,8 +27,8 @@
             <Frame Margin="10"
                    BorderColor="Black"
                    CornerRadius="50"
-                   HeightRequest="60"
-                   WidthRequest="60"
+                   HeightRequest="40"
+                   WidthRequest="40"
                    IsClippedToBounds="True"
                    HorizontalOptions="Center"
                    VerticalOptions="Center">
@@ -67,29 +67,44 @@
         <StackLayout>
 
             <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="Center">
+                         HorizontalOptions="FillAndExpand"
+                         Spacing="12">
                 <Image Source="ProfileView.png"
                        WidthRequest="40"
                        HeightRequest="40"/>
-                <Label Text="{Binding Id}"
-                    VerticalOptions="CenterAndExpand"/>
+                <Label Text="{Binding Name}"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="End"/>
 
             </StackLayout>
 
             <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="Center">
+                         HorizontalOptions="Start"
+                         Spacing="12">
                 <Image Source="EmailPicture.png"
                        WidthRequest="40"
                        HeightRequest="40"/>
                    
                 <Label Text="{Binding Email}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Start"
+                         Spacing="12">
+                <Image Source="PhoneNumber.png"
+                       WidthRequest="40"
+                       HeightRequest="40"/>
+                   
+                <Label Text="0412345678"
                     VerticalOptions="CenterAndExpand"/>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal">
+            <!--<StackLayout Orientation="Horizontal">
                 <Image Source="{Binding Picture}"
                     VerticalOptions="CenterAndExpand"/>
-            </StackLayout>
+            </StackLayout>-->
 
 
         </StackLayout>
