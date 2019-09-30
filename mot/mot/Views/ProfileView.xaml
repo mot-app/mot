@@ -34,22 +34,24 @@
                    VerticalOptions="Center">
 
             <Image Source="ProfilePicture.png"
-                HeightRequest="100"
-                WidthRequest="100"
-                Margin="-20"
-                >
+                HeightRequest="150"
+                WidthRequest="150"
+                Margin="-40">
             </Image>
                 </Frame>
             <Label Text="{Binding Name}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
-                FontSize="Large"/>
+                FontSize="Large"
+                TextColor="White"/>
+                
             <BoxView Color="Black"
                      HeightRequest="2"
                      HorizontalOptions="Fill">
             </BoxView>
             <Label Text="Bio"
-                   HorizontalOptions="Center">
+                   HorizontalOptions="Center"
+                   TextColor="White">
 
             </Label>
         </StackLayout>
@@ -63,7 +65,12 @@
             </Label>
         </StackLayout>
     
-    <Frame Padding="30, 30">
+    <Frame Padding="30, 30"
+           CornerRadius="15"
+           WidthRequest="330"
+           HeightRequest="250"
+           VerticalOptions="Center"
+           HorizontalOptions="Center">
         <StackLayout>
 
             <StackLayout Orientation="Horizontal"
