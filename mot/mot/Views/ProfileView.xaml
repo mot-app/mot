@@ -6,23 +6,104 @@
              mc:Ignorable="d"
              x:Class="mot.Views.ProfileView">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{Binding Id}"
+    <StackLayout BackgroundColor="LightGray">
+        <StackLayout Padding="10">
+            <Label Text="Profile"
+                FontSize="Large"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand">
+
+            </Label>
+            </StackLayout>
+    <Frame BackgroundColor="Orange"
+           HorizontalOptions="Fill"
+           VerticalOptions="Fill"
+           IsClippedToBounds="True"
+           Padding="10"
+           CornerRadius="10"
+           HasShadow="True">
+
+        <StackLayout>
+            <Frame Margin="10"
+                   BorderColor="Black"
+                   CornerRadius="50"
+                   HeightRequest="60"
+                   WidthRequest="60"
+                   IsClippedToBounds="True"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center">
+
+            <Image Source="ProfilePicture.png"
+                HeightRequest="100"
+                WidthRequest="100"
+                Margin="-20"
+                >
+            </Image>
+                </Frame>
             <Label Text="{Binding Name}"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding Email}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Image Source="{Binding Picture}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand"
+                FontSize="Large"/>
+            <BoxView Color="Black"
+                     HeightRequest="2"
+                     HorizontalOptions="Fill">
+            </BoxView>
+            <Label Text="Bio"
+                   HorizontalOptions="Center">
+
+            </Label>
+        </StackLayout>
+    </Frame>
+    
+        <StackLayout Padding="10">
+            <Label Text="Private Information"
+                   FontSize="Large"
+                   HorizontalOptions="Center">
+
+            </Label>
+        </StackLayout>
+    
+    <Frame Padding="30, 30">
+        <StackLayout>
+
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center">
+                <Image Source="ProfileView.png"
+                       WidthRequest="40"
+                       HeightRequest="40"/>
+                <Label Text="{Binding Id}"
+                    VerticalOptions="CenterAndExpand"/>
+
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center">
+                <Image Source="EmailPicture.png"
+                       WidthRequest="40"
+                       HeightRequest="40"/>
+                   
+                <Label Text="{Binding Email}"
+                    VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Image Source="{Binding Picture}"
+                    VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+
+
+        </StackLayout>
+    </Frame>
+        <StackLayout Padding="10">
             <Label Text="{Binding DisplayAvailable}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Button Text="{Binding DisplayAvailableButton}" Command="{Binding ChangeAvailable}"/>
+            <Button Text="{Binding DisplayAvailableButton}"
+                    Command="{Binding ChangeAvailable}"
+                    BorderColor="Orange"
+                    CornerRadius="10"
+                    BackgroundColor="Orange"/>
+        </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
