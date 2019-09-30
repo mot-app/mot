@@ -15,17 +15,17 @@
         </ShellSection>
     </ShellItem>
     <TabBar Route="main">
-        <Tab Title="Overview">
+        <Tab Icon="ListView.png">
             <ShellContent>
                 <views:OverView></views:OverView>
             </ShellContent>
         </Tab>
-        <Tab Title="Map">
+        <Tab Icon="LogoTemplate.png">
             <ShellContent>
                 <views:MapView></views:MapView>
             </ShellContent>
         </Tab>
-        <Tab Title="Profile">
+        <Tab Icon="ProfileView.png">
             <ShellContent>
                 <views:ProfileView></views:ProfileView>
             </ShellContent>
