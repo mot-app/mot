@@ -17,9 +17,12 @@ namespace mot.ViewModels
         public ProfileViewModel()
         {
             ChangeAvailable = new Command(ChangeAvailableCommand, () => !IsBusy);
+            FetchUser = new Command(async () => await GetUser());
         }
 
-        private User User;
+        public User User;
+
+        public Command FetchUser { get; }
 
         private string id; 
         public string Id

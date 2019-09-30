@@ -13,7 +13,7 @@ namespace mot.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OverView : ContentPage
     {
-        OverViewModel overview;
+        private OverViewModel overview;
         public OverView()
         {
             InitializeComponent();

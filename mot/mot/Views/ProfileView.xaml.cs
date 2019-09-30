@@ -22,11 +22,14 @@ namespace mot.Views
             BindingContext = profile = new ProfileViewModel();
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            await profile.GetUser();
+            if(profile.User == null)
+            {
+                profile.FetchUser.Execute(null);
+            }
         }
     }
 }

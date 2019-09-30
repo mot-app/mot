@@ -16,11 +16,13 @@ namespace mot.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapView : ContentPage
     {
+        private MapViewModel viewmodel;
+
         public MapView()
         {
             InitializeComponent();
 
-            BindingContext = new MapViewModel();
+            BindingContext = viewmodel = new MapViewModel();
 
             Task.Run(async () => await SetMapLocation());
         }
@@ -36,6 +38,14 @@ namespace mot.Views
             var zoomLevel = 9;
             var latlongdegrees = 360 / (Math.Pow(2, zoomLevel));
             Map.MoveToRegion(new MapSpan(Map.VisibleRegion.Center, latlongdegrees, latlongdegrees));
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            await viewmodel.GetMeetups();
+
         }
     }
 }
