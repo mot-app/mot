@@ -20,9 +20,6 @@ namespace mot.Models
         [JsonProperty("time")]
         public DateTime Time { get; set; }
 
-        [JsonProperty("active")]
-        public bool Active { get; set; }
-
         [JsonProperty("user1name")]
         public string User1Name { get; set; }
 

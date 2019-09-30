@@ -8,7 +8,17 @@
              x:Class="mot.Views.MapView">
     <ContentPage.Content>
         <StackLayout>
-            <maps:Map x:Name="Map" IsShowingUser="true" />
+            <maps:Map x:Name="Map" 
+                IsShowingUser="true"
+                ItemsSource="{Binding Pins}">
+                <maps:Map.ItemTemplate>
+                    <DataTemplate>
+                        <maps:Pin 
+                              Position="{Binding Position}"
+                              Label="{Binding Description}" />
+                    </DataTemplate>
+                </maps:Map.ItemTemplate>
+            </maps:Map>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

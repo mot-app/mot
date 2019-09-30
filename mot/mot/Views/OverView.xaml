@@ -53,8 +53,13 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding User1Name}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                <Label Grid.Column="1" Text="{Binding User2Name}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding User1Name}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding User2Name}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Button Grid.Row="1" Grid.ColumnSpan="2" Text="Cancel Meetup" HorizontalOptions="Center" VerticalOptions="Center" Command="{Binding BindingContext.CancelMeetup, Source={x:Reference Overview} }" CommandParameter="{Binding Id}"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

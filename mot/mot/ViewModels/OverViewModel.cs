@@ -3,6 +3,7 @@ using mot.Services.Api;
 using MvvmHelpers;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace mot.ViewModels
             });
 
             RequestMeetup = new Command(async obj => await SetMeetup(obj));
+            CancelMeetup = new Command(async obj => await DeleteMeetup(obj));
 
             Users = new ObservableCollection<User>();
 
@@ -32,6 +34,8 @@ namespace mot.ViewModels
         public Command Refresh { get; }
 
         public Command RequestMeetup { get; }
+
+        public Command CancelMeetup { get; }
 
         public ObservableCollection<Meetup> Meetups { get; set; }
 
@@ -49,7 +53,7 @@ namespace mot.ViewModels
             string data = await RestService.Read(Uri);
             var meetups = JsonConvert.DeserializeObject<List<Meetup>>(data);
             string id = await SecureStorage.GetAsync("ID");
-            meetups.RemoveAll(meetup => meetup.User1 != id && meetup.User2 != id);
+            meetups.RemoveAll(m => m.User1 != id && m.User2 != id);
 
             foreach (var meetup in meetups)
             {
@@ -83,11 +87,19 @@ namespace mot.ViewModels
 
         private async Task SetMeetup(object obj)
         {
+
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
             string id1 = await SecureStorage.GetAsync("ID");
             var Uri1 = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id1);
             string Data1 = await RestService.Read(Uri1);
             var users1 = JsonConvert.DeserializeObject<List<User>>(Data1);
             var User1 = users1.Find(user => user.Id == id1);
+            User1.Busy = true;
+            await RestService.Update(User1, Uri1);
 
             string id2 = obj as string;
             var Uri2 = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id2);
@@ -104,11 +116,49 @@ namespace mot.ViewModels
             Meetup.User1 = id1;
             Meetup.User2 = id2;
             Meetup.Time = DateTime.Now;
-            Meetup.Active = true;
             Meetup.User1Name = User1.Name;
             Meetup.User2Name = User2.Name;
 
             await RestService.Create(Meetup, Uri);
+            IsBusy = false;
+
+            await GetAvailableUsers();
+            await GetMeetups();
+        }
+
+        private async Task DeleteMeetup(object obj)
+        {
+
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            string meetupid = obj as string;
+            var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/meetup/" + meetupid);
+            string data = await RestService.Read(Uri);
+            var meetups = JsonConvert.DeserializeObject<List<Meetup>>(data);
+            string id = await SecureStorage.GetAsync("ID");
+            meetups.RemoveAll(m => m.User1 != id && m.User2 != id);
+            var Meetup = meetups.First();
+            await RestService.Delete(Uri);
+
+            string id1 = Meetup.User1;
+            var Uri1 = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id1);
+            string Data1 = await RestService.Read(Uri1);
+            var users1 = JsonConvert.DeserializeObject<List<User>>(Data1);
+            var User1 = users1.Find(user => user.Id == id1);
+            User1.Busy = false;
+            await RestService.Update(User1, Uri1);
+
+            string id2 = Meetup.User2;
+            var Uri2 = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id2);
+            string Data2 = await RestService.Read(Uri2);
+            var users2 = JsonConvert.DeserializeObject<List<User>>(Data2);
+            var User2 = users2.Find(user => user.Id == id2);
+            User2.Busy = false;
+            await RestService.Update(User2, Uri2);
+            IsBusy = false;
 
             await GetAvailableUsers();
             await GetMeetups();
