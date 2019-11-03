@@ -15,7 +15,7 @@
 
             </Label>
             </StackLayout>
-    <Frame BackgroundColor="Orange"
+    <Frame BackgroundColor="#fe6436"
            HorizontalOptions="Fill"
            VerticalOptions="Fill"
            IsClippedToBounds="True"
@@ -122,9 +122,9 @@
                 HorizontalOptions="CenterAndExpand" />
             <Button Text="{Binding DisplayAvailableButton}"
                     Command="{Binding ChangeAvailable}"
-                    BorderColor="Orange"
+                    BorderColor="#fe6436"
                     CornerRadius="10"
-                    BackgroundColor="Orange"/>
+                    BackgroundColor="#fe6436"/>
         </StackLayout>
         </StackLayout>
     </ContentPage.Content>
