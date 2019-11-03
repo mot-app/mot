@@ -33,7 +33,7 @@
                 CachingStrategy="RecycleElement" 
                 HasUnevenRows="True" 
                 RowHeight="60"
-                BackgroundColor="Orange">
+                BackgroundColor="#fe6436">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -79,7 +79,7 @@
                 CachingStrategy="RecycleElement" 
                 HasUnevenRows="True" 
                 RowHeight="70"
-                BackgroundColor="Orange">
+                BackgroundColor="#fe6436">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
