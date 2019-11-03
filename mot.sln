@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mot.Android", "mot\mot.Andr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mot.iOS", "mot\mot.iOS\mot.iOS.csproj", "{084D1EB3-6280-4FF0-BF45-46D0B4CA5EF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mot", "mot\mot\mot.csproj", "{A83CC6AC-132C-4525-AF99-D328476CEE95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mot", "mot\mot\mot.csproj", "{A83CC6AC-132C-4525-AF99-D328476CEE95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,18 @@ Global
 		{A83CC6AC-132C-4525-AF99-D328476CEE95}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{A83CC6AC-132C-4525-AF99-D328476CEE95}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{A83CC6AC-132C-4525-AF99-D328476CEE95}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Release|iPhone.Build.0 = Release|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{7F329E5B-79ED-48F6-9095-72FF72ABBFDE}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,7 +11,7 @@ using Xamarin.Essentials;
 
 namespace mot.ViewModels
 {
-    class ProfileViewModel : BaseViewModel
+    public class ProfileViewModel : BaseViewModel
     {
 
         public ProfileViewModel()
@@ -94,9 +94,12 @@ namespace mot.ViewModels
 
         public Command ChangeAvailable { get; }
 
-        public async Task GetUser()
+        public async Task GetUser(string id = null)
         {
-            string id = await SecureStorage.GetAsync("ID");
+            if(id == null)
+            {
+                id = await SecureStorage.GetAsync("ID");
+            }
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id);
             string data = await RestService.Read(Uri);
             var users = JsonConvert.DeserializeObject<List<User>>(data);
@@ -108,9 +111,12 @@ namespace mot.ViewModels
             Available = User.Available;
         }
 
-        public async Task UpdateUser()
+        public async Task UpdateUser(string id = null)
         {
-            string id = await SecureStorage.GetAsync("ID");
+            if (id == null)
+            {
+                id = await SecureStorage.GetAsync("ID");
+            }
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user/" + id);
             await RestService.Update(User, Uri);
         }

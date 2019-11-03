@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace mot.ViewModels
 {
-    class OverViewModel : BaseViewModel
+    public class OverViewModel : BaseViewModel
     {
         public OverViewModel()
         {
