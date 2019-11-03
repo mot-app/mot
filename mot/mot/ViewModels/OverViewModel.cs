@@ -41,7 +41,7 @@ namespace mot.ViewModels
 
         public ObservableCollection<User> Users { get; set; }
 
-        public async Task GetMeetups()
+        public async Task GetMeetups(string id = null)
         {
             if (IsBusy)
                 return;
@@ -52,7 +52,10 @@ namespace mot.ViewModels
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/meetup/");
             string data = await RestService.Read(Uri);
             var meetups = JsonConvert.DeserializeObject<List<Meetup>>(data);
-            string id = await SecureStorage.GetAsync("ID");
+            if (id == null)
+            {
+                id = await SecureStorage.GetAsync("ID");
+            }
             meetups.RemoveAll(m => m.User1 != id && m.User2 != id);
 
             foreach (var meetup in meetups)
@@ -63,7 +66,7 @@ namespace mot.ViewModels
             IsBusy = false;
         }
 
-        public async Task GetAvailableUsers()
+        public async Task GetAvailableUsers(string id = null)
         {
             if (IsBusy)
                 return;
@@ -74,7 +77,10 @@ namespace mot.ViewModels
             var Uri = new Uri("https://server-cy3lzdr3na-uc.a.run.app/user");
             string data = await RestService.Read(Uri);
             var users = JsonConvert.DeserializeObject<List<User>>(data);
-            string id = await SecureStorage.GetAsync("ID");
+            if (id == null)
+            {
+                id = await SecureStorage.GetAsync("ID");
+            }
             users.RemoveAll(user => !user.Available || user.Busy || user.Id == id);
 
             foreach (var user in users)

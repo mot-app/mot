@@ -25,8 +25,8 @@ namespace mot
             string id = await SecureStorage.GetAsync("ID");
             if(!string.IsNullOrEmpty(id))
             {
-                await Current.GoToAsync("//main");
                 await LoggedIn(id);
+                await Current.GoToAsync("//main");
             }
         }
 
