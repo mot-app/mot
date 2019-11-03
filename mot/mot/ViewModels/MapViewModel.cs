@@ -12,7 +12,7 @@ using Xamarin.Forms.Maps;
 
 namespace mot.ViewModels
 {
-    class MapViewModel : BaseViewModel
+    public class MapViewModel : BaseViewModel
     {
         public MapViewModel()
         {
