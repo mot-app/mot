@@ -42,9 +42,7 @@
                                     <ColumnDefinition Width="60"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <!-- Replace with {Binding Picture} once they are added to the database.
-                                <Image Source="{Binding Picture}"-->
-                                <Image Source="ProfilePicture.png"
+                                <Image Source="{Binding Picture}"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center"
                                     WidthRequest="60"
@@ -87,9 +85,9 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0" Grid.Column="0" Text="{Binding User1Name}" HorizontalOptions="Start" VerticalOptions="Center" TextColor="White"/>
