@@ -16,7 +16,7 @@ namespace mot.ViewModels
 
         public ProfileViewModel()
         {
-            ChangeAvailable = new Command(ChangeAvailableCommand, () => !IsBusy);
+            ChangeAvailable = new Command<string>((string id) => ChangeAvailableCommand(id), (string id) => !IsBusy);
             FetchUser = new Command(async () => await GetUser());
         }
 
@@ -85,14 +85,14 @@ namespace mot.ViewModels
 
         public string DisplayAvailableButton => available ? $"Make yourself hidden" : $"Make yourself available";
 
-        private async void ChangeAvailableCommand()
+        private async void ChangeAvailableCommand(string id)
         {
             Available = !available;
             User.Available = Available;
-            await UpdateUser();
+            await UpdateUser(id);
         }
 
-        public Command ChangeAvailable { get; }
+        public Command<string> ChangeAvailable { get; }
 
         public async Task GetUser(string id = null)
         {
